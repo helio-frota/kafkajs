@@ -162,7 +162,8 @@ describe('Admin', () => {
       )
     })
 
-    test('applies and deletes acl', async () => {
+    // [MKAFKA]
+    test.skip('applies and deletes acl', async () => {
       const topicName = `test-topic-${secureRandom()}`
 
       await admin.createTopics({

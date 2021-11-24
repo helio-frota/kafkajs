@@ -13,56 +13,55 @@ const socketFactory = defaultSocketFactory()
 
 const {
   createLogger,
-  LEVELS: { NOTHING },
+  LEVELS: { DEBUG },
 } = require('../src/loggers')
 
 const LoggerConsole = require('../src/loggers/console')
 const { Kafka } = require('../index')
 
 const newLogger = (opts = {}) =>
-  createLogger(Object.assign({ level: NOTHING, logCreator: LoggerConsole }, opts))
+  createLogger(Object.assign({ level: DEBUG, logCreator: LoggerConsole }, opts))
 
-const getHost = () => 'localhost'
+const getHost = () => process.env.KAFKA_HOST || 'localhost'
 const secureRandom = (length = 10) =>
   `${crypto.randomBytes(length).toString('hex')}-${process.pid}-${uuid()}`
 
-const plainTextBrokers = (host = getHost()) => [`${host}:9092`, `${host}:9095`, `${host}:9098`]
-const sslBrokers = (host = getHost()) => [`${host}:9093`, `${host}:9096`, `${host}:9099`]
-const saslBrokers = (host = getHost()) => [`${host}:9094`, `${host}:9097`, `${host}:9100`]
-
+const plainTextBrokers = (host = getHost()) => [`${host}:443`]
+const sslBrokers = (host = getHost()) => [`${host}:443`]
+const saslBrokers = (host = getHost()) => [`${host}:443`]
 const connectionOpts = (opts = {}) => ({
   socketFactory,
   clientId: `test-${secureRandom()}`,
   connectionTimeout: 3000,
   logger: newLogger(),
   host: getHost(),
-  port: 9092,
+  port: 443,
   ...opts,
 })
 
 const sslConnectionOpts = () =>
   Object.assign(connectionOpts(), {
-    port: 9093,
+    port: 443,
     ssl: {
-      servername: 'localhost',
+      servername: getHost(),
       rejectUnauthorized: false,
-      ca: [fs.readFileSync('./testHelpers/certs/cert-signed', 'utf-8')],
+      // ca: [fs.readFileSync('./testHelpers/certs/cert-signed', 'utf-8')],
     },
   })
 
 const saslConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'plain',
-      username: 'test',
-      password: 'testtest',
+      username: process.env.CLIENT_USERNAME || 'test',
+      password: process.env.CLIENT_PASSWORD || 'testtest',
     },
   })
 
 const saslWrongConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'plain',
       username: 'wrong',
@@ -72,7 +71,7 @@ const saslWrongConnectionOpts = () =>
 
 const saslSCRAM256ConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'scram-sha-256',
       username: 'testscram',
@@ -82,7 +81,7 @@ const saslSCRAM256ConnectionOpts = () =>
 
 const saslSCRAM256WrongConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'scram-sha-256',
       username: 'wrong',
@@ -92,7 +91,7 @@ const saslSCRAM256WrongConnectionOpts = () =>
 
 const saslSCRAM512ConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'scram-sha-512',
       username: 'testscram',
@@ -102,7 +101,7 @@ const saslSCRAM512ConnectionOpts = () =>
 
 const saslSCRAM512WrongConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'scram-sha-512',
       username: 'wrong',
@@ -112,7 +111,7 @@ const saslSCRAM512WrongConnectionOpts = () =>
 
 const saslOAuthBearerConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
-    port: 9094,
+    port: 443,
     sasl: {
       mechanism: 'oauthbearer',
       oauthBearerProvider: () => {
@@ -158,7 +157,7 @@ if (process.env['OAUTHBEARER_ENABLED'] !== '1') {
   })
 }
 
-const createConnection = (opts = {}) => new Connection(Object.assign(connectionOpts(), opts))
+const createConnection = (opts = {}) => new Connection(Object.assign(saslConnectionOpts(), opts))
 
 const createConnectionBuilder = (opts = {}, brokers = plainTextBrokers()) => {
   return connectionBuilder({
@@ -166,13 +165,13 @@ const createConnectionBuilder = (opts = {}, brokers = plainTextBrokers()) => {
     logger: newLogger(),
     brokers,
     connectionTimeout: 1000,
-    ...connectionOpts(),
+    ...saslConnectionOpts(),
     ...opts,
   })
 }
 
 const createCluster = (opts = {}, brokers = plainTextBrokers()) =>
-  new Cluster(Object.assign(connectionOpts(), opts, { brokers }))
+  new Cluster(Object.assign(saslConnectionOpts(), opts, { brokers }))
 
 const createModPartitioner = () => ({ partitionMetadata, message }) => {
   const numPartitions = partitionMetadata.length
@@ -242,7 +241,7 @@ const waitForConsumerToJoinGroup = (consumer, { maxWait = 10000, label = '' } = 
   })
 
 const createTopic = async ({ topic, partitions = 1, replicas = 1, config = [] }) => {
-  const kafka = new Kafka({ clientId: 'testHelpers', brokers: [`${getHost()}:9092`] })
+  const kafka = new Kafka({ clientId: 'testHelpers', brokers: [`${getHost()}:443`] })
   const admin = kafka.admin()
 
   try {
@@ -259,19 +258,21 @@ const createTopic = async ({ topic, partitions = 1, replicas = 1, config = [] })
 }
 
 const addPartitions = async ({ topic, partitions }) => {
-  const cmd = `TOPIC=${topic} PARTITIONS=${partitions} ./scripts/addPartitions.sh`
-  const cluster = createCluster()
+  // const cmd = `TOPIC=${topic} PARTITIONS=${partitions} ./scripts/addPartitions.sh`
+  // const cluster = createCluster()
 
-  await cluster.connect()
-  await cluster.addTargetTopic(topic)
+  // await cluster.connect()
+  // await cluster.addTargetTopic(topic)
 
-  execa.commandSync(cmd, { shell: true })
+  // execa.commandSync(cmd, { shell: true })
 
-  waitFor(async () => {
-    await cluster.refreshMetadata()
-    const partitionMetadata = cluster.findTopicPartitionMetadata(topic)
-    return partitionMetadata.length === partitions
-  })
+  // waitFor(async () => {
+  //   await cluster.refreshMetadata()
+  //   const partitionMetadata = cluster.findTopicPartitionMetadata(topic)
+  //   return partitionMetadata.length === partitions
+  // })
+  console.log('*** attempt to create partitions using bash script.')
+  return true
 }
 
 const testIfKafkaVersion = (version, versionComparator) => {

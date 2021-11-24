@@ -48,7 +48,10 @@ describe('Admin', () => {
 
   describe('createAcls', () => {
     test('throws an error if the acl array is invalid', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       await expect(admin.createAcls({ acl: 'this-is-not-an-array' })).rejects.toHaveProperty(
@@ -58,7 +61,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if the resource name is invalid', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -78,7 +84,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if the principal name is invalid', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -98,7 +107,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if the host name is invalid', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -118,7 +130,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if there are invalid resource types', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -138,7 +153,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if there are invalid resource pattern types', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -158,7 +176,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if there are invalid permission types', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -178,7 +199,10 @@ describe('Admin', () => {
     })
 
     test('throws an error if there are invalid operation types', async () => {
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
       await admin.connect()
 
       const ACLEntry = {
@@ -200,7 +224,10 @@ describe('Admin', () => {
     test('checks topic access', async () => {
       const topicName = `test-topic-${secureRandom()}`
 
-      admin = createSASLAdminClientForUser({ username: 'test', password: 'testtest' })
+      admin = createSASLAdminClientForUser({
+        username: process.env.CLIENT_USERNAME || 'test',
+        password: process.env.CLIENT_USERNAME || 'testtest',
+      })
 
       await admin.connect()
       await admin.createTopics({
