@@ -12,7 +12,7 @@ const {
   addPartitions,
 } = require('testHelpers')
 
-describe('Consumer', () => {
+describe.skip('Consumer', () => {
   let topicName, groupId, producer, consumer1, consumer2
 
   beforeEach(async () => {

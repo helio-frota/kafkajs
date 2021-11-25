@@ -54,28 +54,16 @@ describe('Admin', () => {
       )
     })
 
-    // [MKAFKA] Added numPartitions: 1, replicationFactor: 3 and
-    // Using a different path now to make this test pass
-    // now finding a controller broker instead of createAdmin
-    // the test still failing because it returns an object instead boolean
-    //
-    // Expected: true
-    // Received: {"clientSideThrottleTime": 0, "throttleTime": 0, "topicErrors":
-    // [{"errorCode": 0, "errorMessage": null,
-    // "topic": "test-topic-5da04ac3cbb9e8d71efc-39398-224fabb4-9987-48a3-891e-d70fcfd3deab"}]}
     test('create the new topics and return true', async () => {
-      const cluster = createCluster()
-      // admin = createAdmin({ cluster: cluster, logger: newLogger() })
+      admin = createAdmin({ cluster: createCluster(), logger: newLogger() })
 
-      await cluster.refreshMetadata()
-      const broker = await cluster.findControllerBroker()
-      await broker.connect()
+      await admin.connect()
       await expect(
-        broker.createTopics({
+        admin.createTopics({
           waitForLeaders: false,
-          topics: [{ topic: topicName, numPartitions: 1, replicationFactor: 3 }],
+          topics: [{ topic: topicName }],
         })
-      ).resolves.includes('test-topic')
+      ).resolves.toEqual(true)
     })
 
     test('retries if the controller has moved', async () => {

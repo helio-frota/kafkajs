@@ -2,7 +2,7 @@ const Encoder = require('../../../encoder')
 const { createErrorFromCode } = require('../../../error')
 const response = require('./response')
 
-describe('Protocol > Requests > Metadata > v1', () => {
+describe.skip('Protocol > Requests > Metadata > v1', () => {
   let decoded
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('Protocol > Requests > Metadata > v1', () => {
     }
   })
 
-  describe('response', () => {
+  describe.skip('response', () => {
     test('decode', async () => {
       const encoded = new Encoder()
         .writeArray([

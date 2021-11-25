@@ -16,7 +16,7 @@ describe('Network > Connection', () => {
     connection && (await connection.disconnect())
   })
 
-  describe('#connect', () => {
+  describe.skip('#connect', () => {
     describe('PLAINTEXT', () => {
       beforeEach(() => {
         connection = new Connection(connectionOpts())
@@ -35,7 +35,7 @@ describe('Network > Connection', () => {
       })
     })
 
-    describe('SSL', () => {
+    describe.skip('SSL', () => {
       beforeEach(() => {
         connection = new Connection(sslConnectionOpts())
       })
@@ -70,7 +70,7 @@ describe('Network > Connection', () => {
     })
   })
 
-  describe('#disconnect', () => {
+  describe.skip('#disconnect', () => {
     beforeEach(() => {
       connection = new Connection(connectionOpts())
     })
@@ -94,7 +94,7 @@ describe('Network > Connection', () => {
     })
   })
 
-  describe('#send', () => {
+  describe.skip('#send', () => {
     let apiVersions, metadata
 
     beforeEach(() => {
@@ -213,7 +213,7 @@ describe('Network > Connection', () => {
       )
     })
 
-    describe('Debug logging', () => {
+    describe.skip('Debug logging', () => {
       let initialValue, connection
 
       beforeAll(() => {
@@ -264,7 +264,7 @@ describe('Network > Connection', () => {
       })
     })
 
-    describe('Error logging', () => {
+    describe.skip('Error logging', () => {
       let connection, errorStub
 
       beforeEach(() => {
@@ -307,7 +307,7 @@ describe('Network > Connection', () => {
     })
   })
 
-  describe('#nextCorrelationId', () => {
+  describe.skip('#nextCorrelationId', () => {
     beforeEach(() => {
       connection = new Connection(connectionOpts())
     })
@@ -334,7 +334,7 @@ describe('Network > Connection', () => {
     })
   })
 
-  describe('#processData', () => {
+  describe.skip('#processData', () => {
     beforeEach(() => {
       connection = new Connection(connectionOpts())
     })

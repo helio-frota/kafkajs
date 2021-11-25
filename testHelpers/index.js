@@ -13,14 +13,14 @@ const socketFactory = defaultSocketFactory()
 
 const {
   createLogger,
-  LEVELS: { DEBUG },
+  LEVELS: { NOTHING },
 } = require('../src/loggers')
 
 const LoggerConsole = require('../src/loggers/console')
 const { Kafka } = require('../index')
 
 const newLogger = (opts = {}) =>
-  createLogger(Object.assign({ level: DEBUG, logCreator: LoggerConsole }, opts))
+  createLogger(Object.assign({ level: NOTHING, logCreator: LoggerConsole }, opts))
 
 const getHost = () => process.env.KAFKA_HOST || 'localhost'
 const secureRandom = (length = 10) =>
@@ -258,21 +258,19 @@ const createTopic = async ({ topic, partitions = 1, replicas = 1, config = [] })
 }
 
 const addPartitions = async ({ topic, partitions }) => {
-  // const cmd = `TOPIC=${topic} PARTITIONS=${partitions} ./scripts/addPartitions.sh`
-  // const cluster = createCluster()
+  const cmd = `TOPIC=${topic} PARTITIONS=${partitions} ./scripts/addPartitions.sh`
+  const cluster = createCluster()
 
-  // await cluster.connect()
-  // await cluster.addTargetTopic(topic)
+  await cluster.connect()
+  await cluster.addTargetTopic(topic)
 
-  // execa.commandSync(cmd, { shell: true })
+  execa.commandSync(cmd, { shell: true })
 
-  // waitFor(async () => {
-  //   await cluster.refreshMetadata()
-  //   const partitionMetadata = cluster.findTopicPartitionMetadata(topic)
-  //   return partitionMetadata.length === partitions
-  // })
-  console.log('*** attempt to create partitions using bash script.')
-  return true
+  waitFor(async () => {
+    await cluster.refreshMetadata()
+    const partitionMetadata = cluster.findTopicPartitionMetadata(topic)
+    return partitionMetadata.length === partitions
+  })
 }
 
 const testIfKafkaVersion = (version, versionComparator) => {

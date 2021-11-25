@@ -7,7 +7,7 @@ const events = require('../instrumentationEvents')
 const RequestQueue = require('./index')
 const { KafkaJSInvariantViolation } = require('../../errors')
 
-describe('Network > RequestQueue', () => {
+describe.skip('Network > RequestQueue', () => {
   let requestQueue
   let correlationId = 0
 
@@ -319,7 +319,7 @@ describe('Network > RequestQueue', () => {
     })
   })
 
-  describe('instrumentation events', () => {
+  describe.skip('instrumentation events', () => {
     let emitter, removeListener, eventCalled, request, payload, size, requestTimeout
 
     beforeEach(() => {

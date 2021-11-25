@@ -16,7 +16,7 @@ const RESOURCE_PATTERN_TYPES = require('../../protocol/resourcePatternTypes')
 const createSASLAdminClientForUser = ({ username, password }) => {
   const saslConnectionOpts = () => {
     return Object.assign(sslConnectionOpts(), {
-      port: 9094,
+      port: 443,
       sasl: {
         mechanism: 'plain',
         username,
