@@ -137,19 +137,19 @@ if (process.env['OAUTHBEARER_ENABLED'] !== '1') {
     expectedErr: /SASL PLAIN authentication failed/,
   })
 
-  saslEntries.push({
-    name: 'SCRAM 256',
-    opts: saslSCRAM256ConnectionOpts,
-    wrongOpts: saslSCRAM256WrongConnectionOpts,
-    expectedErr: /SASL SCRAM SHA256 authentication failed/,
-  })
+  // saslEntries.push({
+  //   name: 'SCRAM 256',
+  //   opts: saslSCRAM256ConnectionOpts,
+  //   wrongOpts: saslSCRAM256WrongConnectionOpts,
+  //   expectedErr: /SASL SCRAM SHA256 authentication failed/,
+  // })
 
-  saslEntries.push({
-    name: 'SCRAM 512',
-    opts: saslSCRAM512ConnectionOpts,
-    wrongOpts: saslSCRAM512WrongConnectionOpts,
-    expectedErr: /SASL SCRAM SHA512 authentication failed/,
-  })
+  // saslEntries.push({
+  //   name: 'SCRAM 512',
+  //   opts: saslSCRAM512ConnectionOpts,
+  //   wrongOpts: saslSCRAM512WrongConnectionOpts,
+  //   expectedErr: /SASL SCRAM SHA512 authentication failed/,
+  // })
 } else {
   saslEntries.push({
     name: 'OAUTHBEARER',
