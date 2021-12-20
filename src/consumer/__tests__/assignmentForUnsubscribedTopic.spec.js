@@ -62,7 +62,9 @@ describe('Consumer', () => {
     expect(event.payload.memberAssignment[topicNames[1]]).toBeUndefined()
   })
 
-  flakyTest('starts consuming from new topics after already having assignments', async () => {
+  // KafkaJSNonRetriableError
+  // Caused by: KafkaJSProtocolError: The coordinator is not aware of this member
+  flakyTest.skip('starts consuming from new topics after already having assignments', async () => {
     consumer2 = createConsumer({
       cluster: createCluster({ metadataMaxAge: 50 }),
       groupId,
