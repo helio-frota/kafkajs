@@ -49,7 +49,7 @@ describe('Admin', () => {
       )
     })
 
-    test('throws an error trying to create partition if topic does not exists', async () => {
+    test.skip('throws an error trying to create partition if topic does not exists', async () => {
       admin = createAdmin({ cluster: createCluster(), logger: newLogger() })
 
       await admin.connect()
@@ -61,7 +61,7 @@ describe('Admin', () => {
       ).rejects.toHaveProperty('message', 'This server does not host this topic-partition')
     })
 
-    test('throws an error trying to assign invalid broker', async () => {
+    test.skip('throws an error trying to assign invalid broker', async () => {
       admin = createAdmin({ cluster: createCluster(), logger: newLogger() })
 
       await admin.connect()
@@ -80,7 +80,7 @@ describe('Admin', () => {
       ).rejects.toHaveProperty('message', 'Replica assignment is invalid')
     })
 
-    test('throws an error trying when total partition is less then current', async () => {
+    test.skip('throws an error trying when total partition is less then current', async () => {
       admin = createAdmin({ cluster: createCluster(), logger: newLogger() })
 
       await admin.connect()
@@ -99,7 +99,7 @@ describe('Admin', () => {
       ).rejects.toHaveProperty('message', 'Number of partitions is invalid')
     })
 
-    test('create new partition', async () => {
+    test.skip('create new partition', async () => {
       admin = createAdmin({ cluster: createCluster(), logger: newLogger() })
 
       await admin.connect()

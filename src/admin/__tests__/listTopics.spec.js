@@ -2,7 +2,7 @@ const createAdmin = require('../index')
 
 const { secureRandom, createCluster, newLogger } = require('testHelpers')
 
-describe('Admin', () => {
+describe.skip('Admin', () => {
   let cluster, admin, existingTopicNames
 
   beforeEach(async () => {

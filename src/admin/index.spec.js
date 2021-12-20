@@ -63,7 +63,7 @@ describe('Admin', () => {
     })
   })
 
-  test('emits the request timeout event', async () => {
+  test.skip('emits the request timeout event', async () => {
     const retrier = createRetry()
     const emitter = new InstrumentationEventEmitter()
     const cluster = createCluster({
@@ -114,7 +114,7 @@ describe('Admin', () => {
     })
   })
 
-  test('emits the request queue size event', async () => {
+  test.skip('emits the request queue size event', async () => {
     const emitter = new InstrumentationEventEmitter()
     const cluster = createCluster({
       instrumentationEmitter: emitter,

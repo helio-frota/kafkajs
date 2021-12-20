@@ -8,7 +8,7 @@ const {
   createModPartitioner,
 } = require('testHelpers')
 
-describe('Admin', () => {
+describe.skip('Admin', () => {
   let topicName, admin, producer, cluster
 
   beforeEach(async () => {

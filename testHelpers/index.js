@@ -42,15 +42,16 @@ const connectionOpts = (opts = {}) => ({
 const sslConnectionOpts = () =>
   Object.assign(connectionOpts(), {
     port: 443,
-    ssl: {
-      servername: getHost(),
-      rejectUnauthorized: false,
-      // ca: [fs.readFileSync('./testHelpers/certs/cert-signed', 'utf-8')],
-    },
+    // ssl: {
+    //   servername: getHost(),
+    //   rejectUnauthorized: false,
+    //   // ca: [fs.readFileSync('./testHelpers/certs/cert-signed', 'utf-8')],
+    // },
   })
 
 const saslConnectionOpts = () =>
   Object.assign(sslConnectionOpts(), {
+    ssl: true,
     port: 443,
     sasl: {
       mechanism: 'plain',
@@ -153,7 +154,7 @@ if (process.env['OAUTHBEARER_ENABLED'] !== '1') {
 } else {
   saslEntries.push({
     name: 'OAUTHBEARER',
-    opts: saslOAuthBearerConnectionOpts,
+    // opts: saslOAuthBearerConnectionOpts,
   })
 }
 

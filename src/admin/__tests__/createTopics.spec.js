@@ -61,7 +61,7 @@ describe('Admin', () => {
       await expect(
         admin.createTopics({
           waitForLeaders: false,
-          topics: [{ topic: topicName }],
+          topics: [{ topic: topicName, numPartitions: 1, replicationFactor: 3 }],
         })
       ).resolves.toEqual(true)
     })

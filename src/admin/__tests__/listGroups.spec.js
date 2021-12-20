@@ -44,7 +44,7 @@ describe('Admin', () => {
     producer && (await producer.disconnect())
   })
 
-  describe('listGroups', () => {
+  describe.skip('listGroups', () => {
     test('list groups', async () => {
       await createTopic({ topic: topicName })
 
