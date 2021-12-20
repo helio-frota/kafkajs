@@ -241,8 +241,17 @@ const waitForConsumerToJoinGroup = (consumer, { maxWait = 10000, label = '' } = 
     })
   })
 
-const createTopic = async ({ topic, partitions = 1, replicas = 1, config = [] }) => {
-  const kafka = new Kafka({ clientId: 'testHelpers', brokers: [`${getHost()}:443`] })
+const createTopic = async ({ topic, partitions = 1, replicas = 3, config = [] }) => {
+  const kafka = new Kafka({
+    clientId: 'testHelpers',
+    brokers: [`${getHost()}:443`],
+    ssl: true,
+    sasl: {
+      mechanism: 'plain',
+      username: process.env.CLIENT_USERNAME,
+      password: process.env.CLIENT_PASSWORD,
+    },
+  })
   const admin = kafka.admin()
 
   try {
@@ -253,6 +262,8 @@ const createTopic = async ({ topic, partitions = 1, replicas = 1, config = [] })
         { topic, numPartitions: partitions, replicationFactor: replicas, configEntries: config },
       ],
     })
+  } catch (error) {
+    console.error(error)
   } finally {
     admin && (await admin.disconnect())
   }
