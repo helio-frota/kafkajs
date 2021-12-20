@@ -48,8 +48,8 @@ describe.skip('Broker > connect', () => {
     })
   }
 
-  describeIfOauthbearerDisabled.skip('when SASL SCRAM is configured', () => {
-    test('parallel calls to connect using SCRAM', async () => {
+  describeIfOauthbearerDisabled('when SASL SCRAM is configured', () => {
+    test.skip('parallel calls to connect using SCRAM', async () => {
       broker = new Broker({
         connection: createConnection(saslSCRAM256ConnectionOpts()),
         logger: newLogger(),
@@ -162,7 +162,7 @@ describe.skip('Broker > connect', () => {
       }
     })
 
-    describeIfOauthbearerDisabled.skip('when SASL SCRAM is configured', () => {
+    describeIfOauthbearerDisabled('when SASL SCRAM is configured', () => {
       testIfKafkaAtLeast_1_1_0('parallel calls to connect using SCRAM', async () => {
         broker = new Broker({
           connection: createConnection(saslSCRAM256ConnectionOpts()),
