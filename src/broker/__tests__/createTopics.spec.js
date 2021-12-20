@@ -32,7 +32,10 @@ describe('Broker > createTopics', () => {
     const topicName1 = `test-topic-${secureRandom()}`
     const topicName2 = `test-topic-${secureRandom()}`
     const response = await broker.createTopics({
-      topics: [{ topic: topicName1 }, { topic: topicName2 }],
+      topics: [
+        { topic: topicName1, numPartitions: 1, replicationFactor: 3 },
+        { topic: topicName2, numPartitions: 1, replicationFactor: 3 },
+      ],
     })
 
     expect(response).toEqual({
@@ -57,7 +60,7 @@ describe('Broker > createTopics', () => {
     await broker.connect()
     const topicName = `test-topic-${secureRandom()}`
     const response = await broker.createTopics({
-      topics: [{ topic: topicName }],
+      topics: [{ topic: topicName, numPartitions: 1, replicationFactor: 3 }],
       validateOnly: true,
     })
 
