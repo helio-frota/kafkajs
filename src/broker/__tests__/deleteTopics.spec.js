@@ -33,7 +33,10 @@ describe('Broker > deleteTopics', () => {
     const topicName2 = `test-topic-${secureRandom()}`
 
     await broker.createTopics({
-      topics: [{ topic: topicName1 }, { topic: topicName2 }],
+      topics: [
+        { topic: topicName1, numPartitions: 1, replicationFactor: 3 },
+        { topic: topicName2, numPartitions: 1, replicationFactor: 3 },
+      ],
     })
 
     const response = await broker.deleteTopics({
