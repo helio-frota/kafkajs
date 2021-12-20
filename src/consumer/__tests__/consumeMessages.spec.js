@@ -1,4 +1,4 @@
-jest.setTimeout(30000)
+jest.setTimeout(35000)
 
 const createAdmin = require('../../admin')
 const createProducer = require('../../producer')
