@@ -40,11 +40,14 @@ describe('Admin', () => {
       )
     })
 
-    test.skip('delete topics', async () => {
+    test('delete topics', async () => {
       admin = createAdmin({ cluster: createCluster(), logger: newLogger() })
 
       await admin.connect()
-      await admin.createTopics({ waitForLeaders: true, topics: [{ topic: topicName }] })
+      await admin.createTopics({
+        waitForLeaders: true,
+        topics: [{ topic: topicName, numPartitions: 1, replicationFactor: 3 }],
+      })
       await expect(admin.deleteTopics({ topics: [topicName] })).resolves.toBe()
     })
 
