@@ -51,7 +51,7 @@ describe('Admin', () => {
       await expect(admin.deleteTopics({ topics: [topicName] })).resolves.toBe()
     })
 
-    test.skip('remove deleted topics from the cluster target group', async () => {
+    test('remove deleted topics from the cluster target group', async () => {
       const cluster = createCluster()
       admin = createAdmin({ cluster, logger: newLogger() })
       await admin.connect()
