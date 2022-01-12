@@ -3,7 +3,7 @@ const { KafkaJSRequestTimeoutError, KafkaJSNonRetriableError } = require('../../
 const InstrumentationEventEmitter = require('../../instrumentation/emitter')
 const events = require('../instrumentationEvents')
 
-describe.skip('Network > SocketRequest', () => {
+describe('Network > SocketRequest', () => {
   let request, sendRequest, timeoutHandler
   let correlationId = 0
   const requestTimeout = 50
@@ -116,7 +116,7 @@ describe.skip('Network > SocketRequest', () => {
     })
   })
 
-  describe.skip('instrumentation events', () => {
+  describe('instrumentation events', () => {
     let emitter, removeListener, eventCalled
 
     beforeEach(() => {

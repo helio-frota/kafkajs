@@ -1,6 +1,6 @@
 const { decode, parse } = require('./response')
 
-describe.skip('Protocol > Requests > Metadata > v3', () => {
+describe('Protocol > Requests > Metadata > v3', () => {
   test('response', async () => {
     const data = await decode(Buffer.from(require('../fixtures/v3_response.json')))
     expect(data).toEqual({

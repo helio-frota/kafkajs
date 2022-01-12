@@ -110,9 +110,7 @@ describe('Producer', () => {
     cluster.disconnect = originalDisconnect
   })
 
-  // KafkaJSNonRetriableError
-  // Caused by: KafkaJSProtocolError: This server does not host this topic-partition
-  test.skip('allows messages with a null value to support tombstones', async () => {
+  test('allows messages with a null value to support tombstones', async () => {
     producer = createProducer({ cluster: createCluster(), logger: newLogger() })
     await producer.connect()
     await producer.send({ acks: 1, topic: topicName, messages: [{ foo: 'bar', value: null }] })

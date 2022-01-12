@@ -10,7 +10,7 @@ const { createErrorFromCode, errorCodes } = require('../../protocol/error')
 const BrokerPool = require('../brokerPool')
 const Broker = require('../../broker')
 
-describe.skip('Cluster > BrokerPool', () => {
+describe('Cluster > BrokerPool', () => {
   let topicName, brokerPool
 
   beforeEach(async () => {

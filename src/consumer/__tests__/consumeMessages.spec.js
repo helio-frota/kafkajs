@@ -562,13 +562,7 @@ describe('Consumer', () => {
     ])
   })
 
-  // Probably a flakey test and with 190 seconds of duration.
-  //  FAIL  src/consumer/__tests__/consumeMessages.spec.js (190.208s)
-  // ● Consumer › stops consuming messages when running = false
-  // expect(received).toEqual(expected) // deep equality
-  // Expected: 1
-  // Received: 0
-  it.skip('stops consuming messages when running = false', async () => {
+  it('stops consuming messages when running = false', async () => {
     await consumer.connect()
     await producer.connect()
     await consumer.subscribe({ topic: topicName, fromBeginning: true })

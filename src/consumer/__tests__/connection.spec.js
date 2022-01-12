@@ -15,7 +15,7 @@ const {
   waitForConsumerToJoinGroup,
 } = require('testHelpers')
 
-describe.skip('Consumer', () => {
+describe('Consumer', () => {
   let topicName, groupId, cluster, producer, consumer
 
   beforeEach(async () => {
