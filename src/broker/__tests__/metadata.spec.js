@@ -8,7 +8,7 @@ const {
   testIfKafkaAtLeast_0_11,
 } = require('testHelpers')
 
-describe.skip('Broker > Metadata', () => {
+describe('Broker > Metadata', () => {
   let topicName, broker
 
   beforeEach(() => {

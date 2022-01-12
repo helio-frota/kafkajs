@@ -1,7 +1,7 @@
 const Broker = require('../index')
 const { secureRandom, createConnection, newLogger, retryProtocol } = require('testHelpers')
 
-describe.skip('Broker > FindGroupCoordinator', () => {
+describe('Broker > FindGroupCoordinator', () => {
   let groupId, seedBroker
 
   beforeEach(async () => {

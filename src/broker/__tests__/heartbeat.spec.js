@@ -59,8 +59,7 @@ describe('Broker > Heartbeat', () => {
     groupCoordinator && (await groupCoordinator.disconnect())
   })
 
-  // KafkaJSProtocolError: The coordinator is not aware of this member
-  test.skip('request', async () => {
+  test('request', async () => {
     const { generationId, memberId } = await groupCoordinator.joinGroup({
       groupId,
       sessionTimeout: 30000,

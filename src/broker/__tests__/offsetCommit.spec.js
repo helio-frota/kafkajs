@@ -59,8 +59,7 @@ describe('Broker > OffsetCommit', () => {
     groupCoordinator && (await groupCoordinator.disconnect())
   })
 
-  // KafkaJSProtocolError: The coordinator is not aware of this member
-  test.skip('request', async () => {
+  test('request', async () => {
     const produceData = [
       {
         topic: topicName,
@@ -119,8 +118,7 @@ describe('Broker > OffsetCommit', () => {
     })
   })
 
-  // KafkaJSProtocolError: The coordinator is not aware of this member
-  test.skip('request with metadata', async () => {
+  test('request with metadata', async () => {
     const produceData = [
       {
         topic: topicName,
