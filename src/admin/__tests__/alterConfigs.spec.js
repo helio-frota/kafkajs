@@ -225,10 +225,7 @@ describe('Admin', () => {
     })
   })
 
-  // KafkaJSProtocolError: Cluster authorization failed
-  // already using this kind of permission:
-  // rhoas kafka acl create --all-accounts --permission allow --operation all --topic all -y
-  test.skip('alter broker configs', async () => {
+  test('alter broker configs', async () => {
     await createTopic({ topic: topicName })
 
     const cluster = createCluster()

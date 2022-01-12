@@ -11,7 +11,7 @@ const {
 const Long = require('../../utils/long')
 const Broker = require('../index')
 
-describe.skip('Broker > connect', () => {
+describe('Broker > connect', () => {
   let broker
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe.skip('Broker > connect', () => {
   }
 
   describeIfOauthbearerDisabled('when SASL SCRAM is configured', () => {
-    test.skip('parallel calls to connect using SCRAM', async () => {
+    test('parallel calls to connect using SCRAM', async () => {
       broker = new Broker({
         connection: createConnection(saslSCRAM256ConnectionOpts()),
         logger: newLogger(),
@@ -82,7 +82,7 @@ describe.skip('Broker > connect', () => {
     expect(broker.authenticatedAt).toBe(null)
   })
 
-  describe.skip('#isConnected', () => {
+  describe('#isConnected', () => {
     test('returns false when not connected', () => {
       expect(broker.isConnected()).toEqual(false)
     })
@@ -104,7 +104,7 @@ describe.skip('Broker > connect', () => {
       expect(broker.isConnected()).toEqual(true)
     })
 
-    describe.skip('when SaslAuthenticate protocol is available', () => {
+    describe('when SaslAuthenticate protocol is available', () => {
       for (const e of saslEntries) {
         test(`returns true when connected and authenticated on connections with SASL ${e.name}`, async () => {
           broker = new Broker({

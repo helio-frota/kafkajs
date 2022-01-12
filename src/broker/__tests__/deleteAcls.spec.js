@@ -30,8 +30,7 @@ describe('Broker > deleteAcls', () => {
     broker && (await broker.disconnect())
   })
 
-  // KafkaJSProtocolError: Cluster authorization failed
-  test.skip('request', async () => {
+  test('request', async () => {
     await broker.connect()
 
     const topicName = `test-topic-${secureRandom()}`

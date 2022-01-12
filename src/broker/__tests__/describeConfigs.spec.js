@@ -5,7 +5,7 @@ const Broker = require('../index')
 
 const sortByConfigName = array => array.sort((a, b) => a.configName.localeCompare(b.configName))
 
-describe.skip('Broker > describeConfigs', () => {
+describe('Broker > describeConfigs', () => {
   let seedBroker, broker
 
   beforeEach(async () => {

@@ -12,7 +12,7 @@ const {
   waitForMessages,
 } = require('testHelpers')
 
-describe.skip('Admin', () => {
+describe('Admin', () => {
   let admin, topicName, groupIds, consumers, producer
 
   beforeAll(async () => {

@@ -221,7 +221,7 @@ describe('Admin', () => {
       )
     })
 
-    test.skip('checks topic access', async () => {
+    test('checks topic access', async () => {
       const topicName = `test-topic-${secureRandom()}`
 
       admin = createSASLAdminClientForUser({
